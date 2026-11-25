@@ -1,68 +1,49 @@
-const prompt = require("prompt-sync")()
+// create an empty array
+let shoppingList = []
 
-// Grab DOM Elements
-// Console.log to make sure your grabbing the right element.
-const input = document.getElementById("todoInput");
-// console.log(input);
-const button = document.getElementById("addButton");
-// console.log(button);
-const todoList = document.getElementById("todoList");
-// console.log(todoList);
+// grab DOM elements
+const input = document.getElementById("todoInput")
+const addButton = document.getElementById("addButton")
+const deleteButton = document.getElementById("deleteButton")
+const todoList = document.getElementById("todoList")
 
-// One click function that:
-// Grabs Input
-// Appends to the DOM
-// Clear the Input
-
-// When creating an event listener - we have 2 arguments:
-// One: The action - click, hover, button press, etc.
-// Two: Function - the behavior, what happens after the click.
-button.addEventListener("click", function(){
-    // Store the input
+// add event listeners
+addButton.addEventListener('click', () => {
     const task = input.value
+    if (task.trim() === "") return
+})
 
-    // /////////////////////////////
-    // CONDITIONAL FOR ALERT
-    // /////////////////////////////
+// create function to add items to my list
+function addItem (item) {
+    if (item.trim() === "") {
+        alert("Not a valid input")
+    } else {
+        return addItem
+    }
+    // console.log()
 
-    const existingTasks = todoList.querySelectorAll("li")
-    // console.log("list of tasks", existingTasks)
+    // check if item already exists
+    const alreadyThere = shoppingList.includes(item.trim())
 
-    for (let i = 0; i < existingTasks.length; i++) {
-
-        if (existingTasks[i].firstChild.textContent.trim() === task.trim()) {
-            alert("This Already Exists in Your Tasks!");
-            return;
-        }
+    // write the conditions for it's existance
+    if (alreadyThere) {
+        alert("This item is already in your list.")
+        return false
     }
 
+    shoppingList.push(item)
+}
 
-    ///////////////////////////////
+// display list
+function displayList (items = shoppingList) {
+    todoList.innerHTML = ""
 
-    // Create a new DOM element
-    const newTask = document.createElement("li")
+    items.forEach(item, index) => {
+        const li = document.createElement("li")
+        li.textContent = item
+    }
+    // add to the list
+    todoList.appendChild(li)
+}
 
-    // Add input text in the newly created li
-    newTask.textContent = task
 
-    // Add the Delete button
-    const deleteButton = document.createElement("button")
-
-    // Add Delete button text
-    deleteButton.textContent = "Delete"
-
-    // Add Delete functionality to button
-    deleteButton.addEventListener("click", function(){
-        newTask.remove();
-    })
-
-    // Add the Delete button to the li
-    newTask.appendChild(deleteButton)
-
-    // Add the newly created li to the existing ul
-    todoList.appendChild(newTask)
-
-    // Reset the input
-    input.value = ""
-
-});

@@ -26,5 +26,9 @@ console.log(shoppingList)
 
 function filterItems(searchTerm) {
 // return all items from search, case-sensitive
+    let term = searchTerm.toLowerCase()
+    return shoppingList.filter(function(name)) {
+        
+    }
 }
 filterItems("pencil")
