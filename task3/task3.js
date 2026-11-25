@@ -2,48 +2,65 @@
 let shoppingList = []
 
 // grab DOM elements
-const input = document.getElementById("todoInput")
+const todoInput = document.getElementById("todoInput")
 const addButton = document.getElementById("addButton")
-const deleteButton = document.getElementById("deleteButton")
+// const deleteButton = document.getElementById("deleteButton")
 const todoList = document.getElementById("todoList")
 
 // add event listeners
 addButton.addEventListener('click', () => {
-    const task = input.value
+    const task = todoInput.value
     if (task.trim() === "") return
+
+    // when pressed add the item
+    const added = addItem(task)
+    if (added) {
+        displayList()
+        todoInput.value = ""
+        todoInput.focus()
+    }
 })
 
 // create function to add items to my list
 function addItem (item) {
     if (item.trim() === "") {
         alert("Not a valid input")
-    } else {
-        return addItem
+        return false
     }
     // console.log()
 
     // check if item already exists
-    const alreadyThere = shoppingList.includes(item.trim())
-
-    // write the conditions for it's existance
-    if (alreadyThere) {
-        alert("This item is already in your list.")
-        return false
+    // const alreadyThere = shoppingList.includes(item.trim())
+    if (shoppingList.includes(item.trim())) {
+        alert('This item is already in your list')
     }
 
-    shoppingList.push(item)
+    // add to the array
+    shoppingList.push(item.trim())
+    return true
 }
 
+
 // display list
-function displayList (items = shoppingList) {
+function displayList () {
     todoList.innerHTML = ""
 
-    items.forEach(item, index) => {
-        const li = document.createElement("li")
+    shoppingList.forEach((item, index) => {
+        const li = document.createElement('li')
         li.textContent = item
-    }
-    // add to the list
-    todoList.appendChild(li)
+
+        // delete button logic — add to every list item
+        const delBtn = document.createElement('button')
+        delBtn.textContent = 'Delete'
+
+        // add click event to the button
+        delBtn.addEventListener('click', () => {
+            shoppingList.splice(index, 1) // removes single item from the list
+            displayList() // refresh the list
+        })
+        li.appendChild(delBtn) // add button to every list item
+        todoList.appendChild(li) // add item to the list
+    })
 }
 
 
