@@ -12,13 +12,14 @@ addButton.addEventListener('click', () => {
     const task = todoInput.value
     if (task.trim() === "") return
 
-    // when pressed add the item
+    // when pressed add the item to the DOM
     const added = addItem(task)
     if (added) {
         displayList()
         todoInput.value = ""
         todoInput.focus()
     }
+    // console.log()
 })
 
 // create function to add items to my list
@@ -35,7 +36,7 @@ function addItem (item) {
         alert('This item is already in your list')
     }
 
-    // add to the array
+    // add item(s) to the array
     shoppingList.push(item.trim())
     return true
 }
