@@ -30,8 +30,7 @@ function addItem (item) {
     }
     // console.log()
 
-    // check if item already exists
-    // const alreadyThere = shoppingList.includes(item.trim())
+    // const alreadyThere = shoppingList.includes(item.trim()) to check if the item already exists
     if (shoppingList.includes(item.trim())) {
         alert('This item is already in your list')
     }
@@ -39,6 +38,12 @@ function addItem (item) {
     // add item(s) to the array
     shoppingList.push(item.trim())
     return true
+}
+
+// a function that takes a search term as a parameter
+function filterItems (searchTerm) {
+    return shoppingList.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 }
 
 
